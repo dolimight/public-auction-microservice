@@ -1,0 +1,11 @@
+services:
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      VITE_USER_PROFILE_SERVICE: "http://user-service:4000"
+      VITE_ITEM_SERVICE: "http://item-service:4200"
+      VITE_BIDDING_SERVICE: "http://bidding-service:4100"
+    ports:
+      - "8080:8080"

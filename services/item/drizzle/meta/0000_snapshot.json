@@ -1,0 +1,253 @@
+{
+  "id": "10b69f59-d440-45bd-9870-8a509c948d69",
+  "prevId": "00000000-0000-0000-0000-000000000000",
+  "version": "7",
+  "dialect": "postgresql",
+  "tables": {
+    "item.category": {
+      "name": "category",
+      "schema": "item",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "item.condition": {
+      "name": "condition",
+      "schema": "item",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "item.item": {
+      "name": "item",
+      "schema": "item",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "uuid",
+          "primaryKey": true,
+          "notNull": true,
+          "default": "gen_random_uuid()"
+        },
+        "title": {
+          "name": "title",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "image": {
+          "name": "image",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "shortDescription": {
+          "name": "shortDescription",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "longDescription": {
+          "name": "longDescription",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "categoryId": {
+          "name": "categoryId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "subCategoryId": {
+          "name": "subCategoryId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "startingBid": {
+          "name": "startingBid",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "buyNowPrice": {
+          "name": "buyNowPrice",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "bidIncrement": {
+          "name": "bidIncrement",
+          "type": "real",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "startDate": {
+          "name": "startDate",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "endDate": {
+          "name": "endDate",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "sellerId": {
+          "name": "sellerId",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "conditionId": {
+          "name": "conditionId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {
+        "search_index": {
+          "name": "search_index",
+          "columns": [
+            {
+              "expression": "(\n        setweight(to_tsvector('english', \"title\"), 'A') ||\n        setweight(to_tsvector('english', \"shortDescription\"), 'B') ||\n        setweight(to_tsvector('english', \"longDescription\"), 'C')\n      )",
+              "asc": true,
+              "isExpression": true,
+              "nulls": "last"
+            }
+          ],
+          "isUnique": false,
+          "concurrently": false,
+          "method": "gin",
+          "with": {}
+        }
+      },
+      "foreignKeys": {
+        "item_categoryId_category_id_fk": {
+          "name": "item_categoryId_category_id_fk",
+          "tableFrom": "item",
+          "tableTo": "category",
+          "schemaTo": "item",
+          "columnsFrom": [
+            "categoryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "item_subCategoryId_category_id_fk": {
+          "name": "item_subCategoryId_category_id_fk",
+          "tableFrom": "item",
+          "tableTo": "category",
+          "schemaTo": "item",
+          "columnsFrom": [
+            "subCategoryId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "item_conditionId_condition_id_fk": {
+          "name": "item_conditionId_condition_id_fk",
+          "tableFrom": "item",
+          "tableTo": "condition",
+          "schemaTo": "item",
+          "columnsFrom": [
+            "conditionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "item.subCategory": {
+      "name": "subCategory",
+      "schema": "item",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    }
+  },
+  "enums": {},
+  "schemas": {
+    "item": "item"
+  },
+  "sequences": {},
+  "roles": {},
+  "policies": {},
+  "views": {},
+  "_meta": {
+    "columns": {},
+    "schemas": {},
+    "tables": {}
+  }
+}

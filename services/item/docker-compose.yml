@@ -1,0 +1,9 @@
+services:
+  item:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      DATABASE_URL: "postgresql://postgres:secretpassword@database:5432/auction"
+    ports:
+      - "4200:4200"

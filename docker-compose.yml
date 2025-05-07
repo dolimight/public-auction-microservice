@@ -1,0 +1,48 @@
+networks:
+  auction:
+    driver: bridge
+
+services:
+  frontend:
+    extends:
+      file: ./services/frontend/docker-compose.yml
+      service: frontend
+    networks:
+      - auction
+
+  database:
+    extends:
+      file: ./services/database/docker-compose.yml
+      service: postgres
+    networks:
+      - auction
+
+  user-service:
+    extends:
+      file: ./services/user-profile/docker-compose.yml
+      service: user-profile
+    depends_on:
+      - database
+    networks:
+      - auction
+
+  bidding-service:
+    extends:
+      file: ./services/bidding/docker-compose.yml
+      service: bidding
+    depends_on:
+      - database
+    networks:
+      - auction
+
+  item-service:
+    extends:
+      file: ./services/item/docker-compose.yml
+      service: item
+    depends_on:
+      - database
+    networks:
+      - auction
+
+volumes:
+  database:

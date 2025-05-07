@@ -1,0 +1,29 @@
+{
+  "name": "user-profile",
+  "version": "0.0.1",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "serve": "bun run src/index.ts",
+    "generate": "drizzle-kit generate",
+    "migrate": "drizzle-kit migrate"
+  },
+  "dependencies": {
+    "@hono/zod-openapi": "^0.19.4",
+    "@logtail/node": "^0.5.4",
+    "@scalar/hono-api-reference": "^0.8.1",
+    "ably": "^2.7.0",
+    "dotenv": "^16.5.0",
+    "drizzle-orm": "^0.42.0",
+    "drizzle-zod": "^0.7.1",
+    "hono": "^4.7.6",
+    "pg": "^8.15.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/pg": "^8.11.13",
+    "drizzle-kit": "^0.31.0",
+    "tsx": "^4.19.3"
+  }
+}

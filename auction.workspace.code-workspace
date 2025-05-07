@@ -1,0 +1,28 @@
+{
+  "folders": [
+    {
+      "name": "database",
+      "path": "services/database"
+    },
+    {
+      "name": "frontend",
+      "path": "services/frontend"
+    },
+    {
+      "name": "item",
+      "path": "services/item"
+    },
+    {
+      "name": "bidding",
+      "path": "services/bidding"
+    },
+    {
+      "name": "user-profile",
+      "path": "services/user-profile"
+    },
+    {
+      "name": "auction-microservice",
+      "path": "."
+    }
+  ]
+}
