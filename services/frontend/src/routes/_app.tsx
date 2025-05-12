@@ -1,8 +1,12 @@
-import { AppShell, Group, Burger, Title, Button } from "@mantine/core";
+import { AppShell, Group, Burger, Title, Button, Text } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { createFileRoute, Link, Outlet } from "@tanstack/react-router";
 import { Logo } from "../components/logo";
 import { useUserStore } from "../hooks/useUserStore";
+import { useSubscribe } from "../hooks/useSubscribe";
+import { BidQueryData } from "../api/bid/bid.query";
+import { notifications } from "@mantine/notifications";
+import { Money } from "../components/money";
 
 export const Route = createFileRoute("/_app")({
   component: RouteComponent,
@@ -14,6 +18,21 @@ function RouteComponent() {
   const navigate = Route.useNavigate();
   const [opened, { toggle }] = useDisclosure();
   const { user, setUser } = useUserStore((state) => state);
+
+  useSubscribe(user && `bid:user:${user.id}`, {
+    onEvent: (data?: BidQueryData) => {
+      if (!data) return;
+      notifications.show({
+        title: "New Bid Placed",
+        message: (
+          <Text>
+            Someone placed a bid of {<Money value={data.amount} />} on an item
+            you are bidding for
+          </Text>
+        ),
+      });
+    },
+  });
 
   return (
     <AppShell header={{ height: headerHeight }} padding="md">

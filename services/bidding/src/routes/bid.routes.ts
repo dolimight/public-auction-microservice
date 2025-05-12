@@ -134,9 +134,18 @@ bidRoutes.openapi(
       return c.body("Failed to create bid.", 500);
     }
 
+    const otherBidUserIds = new Set([
+      ...bids
+        .map((bid) => bid.userId)
+        .filter((userId) => userId !== newBid.userId),
+    ]);
+
     await Promise.all([
       publish(`bid:item:${itemId}`, newBid),
       publish("bid", newBid),
+      ...Array.from(otherBidUserIds).map((userId) =>
+        publish(`bid:user:${userId}`, newBid)
+      ),
     ]);
 
     return c.json(newBid, 200);

@@ -11,6 +11,7 @@ import { MantineProvider } from "@mantine/core";
 import { RouterProvider, createRouter } from "@tanstack/react-router";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
+import { Notifications } from "@mantine/notifications";
 
 dayjs.extend(duration);
 
@@ -32,6 +33,7 @@ export function App() {
     <QueryClientProvider client={queryClient}>
       <MantineProvider defaultColorScheme="light">
         <RouterProvider router={router} />
+        <Notifications />
       </MantineProvider>
     </QueryClientProvider>
   );
